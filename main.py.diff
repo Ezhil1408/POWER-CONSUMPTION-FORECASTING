@@ -1,0 +1,85 @@
+from src.preprocessing.data_loader import load_data
+from src.preprocessing.feature_engineering import create_features
+from src.preprocessing.weather_integration import integrate_weather_data
+from src.models.train import train_model
+from src.models.predict import make_predictions
+from src.models.evaluation import evaluate_model
+
+def main():
+    # Initialize Spark session
+    spark = SparkSession.builder \
+        .appName("Power Consumption Forecasting") \
+        .getOrCreate()
+
+    # Load data
+    power_data, weather_data = load_data(spark)
+
+    # Integrate weather data with power usage data
+    integrated_data = integrate_weather_data(power_data, weather_data)
+
+    # Create features for modeling
+    features = create_features(integrated_data)
+
+    # Train the model
+    model = train_model(features)
+
+    # Make predictions
+    predictions = make_predictions(model, features)
+
+    # Evaluate the model
+    metrics = evaluate_model(predictions, features)
+
+    # Print evaluation metrics
+    print("Model Evaluation Metrics:", metrics)
+
+    # Stop the Spark session
+    spark.stop()
+
+if __name__ == "__main__":
+    main()
+=======
+from pyspark.sql import SparkSession
+from src.preprocessing.data_loader import load_power_data, load_weather_data
+from src.preprocessing.feature_engineering import create_features
+from src.preprocessing.weather_integration import integrate_weather_data
+from src.models.train import train_model
+from src.models.predict import make_predictions
+from src.models.evaluation import evaluate_model
+
+def main():
+    # Initialize Spark session
+    spark = SparkSession.builder \
+        .appName("Power Consumption Forecasting") \
+        .getOrCreate()
+
+    # Define file paths for data
+    power_data_path = "data/raw/power_consumption_2015_2024_no_building.csv"  # example filename, adjust if needed
+    weather_data_path = "data/raw/weather_data.csv"  # placeholder filename, adjust if you have actual file
+
+    # Load data
+    power_data = load_power_data(power_data_path)
+    weather_data = load_weather_data(weather_data_path)
+
+    # Integrate weather data with power usage data
+    integrated_data = integrate_weather_data(power_data, weather_data)
+
+    # Create features for modeling
+    features = create_features(integrated_data)
+
+    # Train the model
+    model = train_model(features)
+
+    # Make predictions
+    predictions = make_predictions(model, features)
+
+    # Evaluate the model
+    metrics = evaluate_model(predictions, features)
+
+    # Print evaluation metrics
+    print("Model Evaluation Metrics:", metrics)
+
+    # Stop the Spark session
+    spark.stop()
+
+if __name__ == "__main__":
+    main()

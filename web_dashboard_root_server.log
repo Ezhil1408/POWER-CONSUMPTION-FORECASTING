@@ -1,0 +1,7 @@
+Serving HTTP on :: port 8001 (http://[::]:8001/) ...
+::ffff:127.0.0.1 - - [27/Nov/2025 10:31:31] "GET /web_dashboard/index.html HTTP/1.1" 200 -
+::1 - - [27/Nov/2025 10:31:47] "GET /web_dashboard/index.html HTTP/1.1" 200 -
+::1 - - [27/Nov/2025 10:31:47] "GET /web_dashboard/css/style.css HTTP/1.1" 304 -
+::1 - - [27/Nov/2025 10:31:47] "GET /web_dashboard/js/app.js HTTP/1.1" 304 -
+::1 - - [27/Nov/2025 10:31:47] "GET /outputs/forecasts_app/predictions_sample.csv HTTP/1.1" 200 -
+^C
